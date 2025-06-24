@@ -3,12 +3,9 @@ from pathlib import Path
 from PIL import Image, ImageDraw, ImageOps, ImageFilter
 import math
 
-
-# ── 1️⃣  base tree যাতে trunk+branches আছে
-base_tree_path = "base_tree.png"       # ← এখানে আপনার লোকাল PNG (টার্গেট) দিন
+base_tree_path = "base_tree.png"  
 base_img = Image.open(base_tree_path).convert("RGBA")
 
-# ── 2️⃣  তিনটি profile ছবির URL
 image_urls = [
     "https://randomuser.me/api/portraits/men/1.jpg",
     "https://randomuser.me/api/portraits/women/2.jpg",
@@ -28,42 +25,9 @@ image_urls = [
     "https://randomuser.me/api/portraits/men/3.jpg",
     "https://randomuser.me/api/portraits/men/10.jpg",
     "https://randomuser.me/api/portraits/women/12.jpg",
-    "https://randomuser.me/api/portraits/men/25.jpg",
-    "https://randomuser.me/api/portraits/women/30.jpg",
-    "https://randomuser.me/api/portraits/men/40.jpg",
-    "https://randomuser.me/api/portraits/women/45.jpg",
-    "https://randomuser.me/api/portraits/men/50.jpg",
-    "https://randomuser.me/api/portraits/women/55.jpg",
-    "https://randomuser.me/api/portraits/men/60.jpg",
-    "https://randomuser.me/api/portraits/women/65.jpg",
-    "https://randomuser.me/api/portraits/men/1.jpg",
-    "https://randomuser.me/api/portraits/women/2.jpg",
-    "https://randomuser.me/api/portraits/men/3.jpg",
-    "https://randomuser.me/api/portraits/men/10.jpg",
-    "https://randomuser.me/api/portraits/women/12.jpg",
-    "https://randomuser.me/api/portraits/men/25.jpg",
-    "https://randomuser.me/api/portraits/women/30.jpg",
-    "https://randomuser.me/api/portraits/men/40.jpg",
-    "https://randomuser.me/api/portraits/women/45.jpg",
-    "https://randomuser.me/api/portraits/men/50.jpg",
-    "https://randomuser.me/api/portraits/women/55.jpg",
-    "https://randomuser.me/api/portraits/men/60.jpg",
-    "https://randomuser.me/api/portraits/women/65.jpg",
-    "https://randomuser.me/api/portraits/men/1.jpg",
-    "https://randomuser.me/api/portraits/women/2.jpg",
-    "https://randomuser.me/api/portraits/men/3.jpg",
-    "https://randomuser.me/api/portraits/men/10.jpg",
-    "https://randomuser.me/api/portraits/women/12.jpg",
-    "https://randomuser.me/api/portraits/men/25.jpg",
-    "https://randomuser.me/api/portraits/women/30.jpg",
-    "https://randomuser.me/api/portraits/men/40.jpg",
-    "https://randomuser.me/api/portraits/women/45.jpg",
-    "https://randomuser.me/api/portraits/men/50.jpg",
-    "https://randomuser.me/api/portraits/women/55.jpg",
-    "https://randomuser.me/api/portraits/men/60.jpg",
-    "https://randomuser.me/api/portraits/women/65.jpg"
+    "https://randomuser.me/api/portraits/men/25.jpg"
 ]
-circle_size = 30  # px ব্যাসার্ধ
+circle_size = 30  # px radius
 # ── helper: download + circular‑crop
 def circle_crop(url, size):
     try:
@@ -135,4 +99,4 @@ if __name__ == "__main__":
 
     out_path = Path("family_tree_final.png")
     canvas.save(out_path)
-    print(f"✅ Saved → {out_path.absolute()}")
+    print(f"Saved → {out_path.absolute()}")
