@@ -66,13 +66,26 @@ image_urls = [
 circle_size = 30  # px ব্যাসার্ধ
 # ── helper: download + circular‑crop
 def circle_crop(url, size):
-    img = Image.open(io.BytesIO(requests.get(url, timeout=20).content)).convert("RGBA")
-    img = ImageOps.fit(img, (size, size))
-    mask = Image.new("L", (size, size), 0)
-    ImageDraw.Draw(mask).ellipse((0, 0, size-1, size-1), fill=255)
-    circled = Image.new("RGBA", (size, size))
-    circled.paste(img, (0, 0), mask=mask)
-    return circled
+    try:
+        response = requests.get(url, timeout=10)
+        print(f"🔍 Fetching: {url}")
+        print(f"📦 Status: {response.status_code}, Type: {response.headers.get('Content-Type')}")
+
+        response.raise_for_status()
+
+        if not response.headers.get("Content-Type", "").startswith("image/"):
+            raise ValueError("Not an image")
+        img = Image.open(io.BytesIO(requests.get(url, timeout=20).content)).convert("RGBA")
+        img = ImageOps.fit(img, (size, size))
+        mask = Image.new("L", (size, size), 0)
+        ImageDraw.Draw(mask).ellipse((0, 0, size-1, size-1), fill=255)
+        circled = Image.new("RGBA", (size, size))
+        circled.paste(img, (0, 0), mask=mask)
+        return circled
+    except Exception as e:
+        print(f"Error loading {url}: {e}")
+        raise e
+    
 
 # ── 3️⃣ Detect random leaf-like edge positions
 def find_safe_edge_positions(img, required_count, circle_size, y_max_ratio=0.6):
