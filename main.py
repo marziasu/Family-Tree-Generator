@@ -32,3 +32,7 @@ async def generate_family_tree(
     canvas.save(buffer, format="PNG")
     buffer.seek(0)
     return StreamingResponse(buffer, media_type="image/png")
+
+@app.get("/")
+async def root():
+    return {"message": "Welcome to the Family Tree Generator API. Use POST /generate-family-tree to generate a family tree image."}
